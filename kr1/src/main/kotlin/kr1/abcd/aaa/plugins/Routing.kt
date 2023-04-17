@@ -1,13 +1,14 @@
 package kr1.abcd.aaa.plugins
 
-import io.ktor.server.routing.*
-import io.ktor.server.response.*
+import kr1.abcd.aaa.routes.*
 import io.ktor.server.application.*
+import io.ktor.server.routing.*
 
 fun Application.configureRouting() {
     routing {
-        get("/") {
-            call.respondText("Hello World!")
-        }
+        customerRouting()
+        listOrdersRoute()
+        getOrderRoute()
+        totalizeOrderRoute()
     }
 }

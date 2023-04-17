@@ -23,3 +23,5 @@ Compose Demo.
 ktor Demo.
 
 * https://ktor.io/
+* https://github.com/ktorio/ktor-documentation/tree/2.2.4/codeSnippets/snippets/tutorial-http-api
+* 
