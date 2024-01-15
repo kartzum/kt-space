@@ -28,7 +28,7 @@ ktor Demo.
 ## dbqp
 dbqp application.
 
-* Based on https://git.yoomoney.ru/projects/BACKEND-LIBRARIES/repos/db-queue/browse
+* Based on: https://git.yoomoney.ru/projects/BACKEND-LIBRARIES/repos/db-queue/browse
 * https://habr.com/ru/articles/481556/
 * https://postgrespro.ru/docs/postgrespro/12/sql-createtable
 
