@@ -11,11 +11,12 @@ import java.sql.SQLException
 import java.time.ZoneId
 import java.time.ZonedDateTime
 import java.util.stream.Collectors
+import kotlin.random.Random
 
 class PostgresQueuePickTaskDao(
     private val jdbcTemplate: NamedParameterJdbcTemplate,
     private val queueTableSchema: QueueTableSchema,
-    location: QueueLocation,
+    private val location: QueueLocation,
 ) : QueuePickTaskDao {
 
     private val pickTasksSql = createPickTasksSql(location)
@@ -25,6 +26,11 @@ class PostgresQueuePickTaskDao(
         .addValue("batchSize", 10)
 
     override fun pickTasksBatch(): List<TaskRecord> {
+        val pickTaskSqlPlaceholders = MapSqlParameterSource()
+            .addValue("queueName", location.queueId.id)
+            .addValue("retryInterval", 0)
+            .addValue("batchSize", 10)
+            .addValue("rnd", Random.nextInt(8))
         return jdbcTemplate.execute(
             pickTasksSql,
             pickTaskSqlPlaceholders
@@ -77,6 +83,7 @@ class PostgresQueuePickTaskDao(
             "FROM " + location.tableName + " " +
             "WHERE " + queueTableSchema.queueNameField + " = :queueName " +
             "  AND " + queueTableSchema.nextProcessAtField + " <= now() " +
+            " AND " + queueTableSchema.idField + " % 8 = :rnd " +
             " ORDER BY " + queueTableSchema.nextProcessAtField + " ASC " +
             "LIMIT :batchSize " +
             "FOR UPDATE SKIP LOCKED) " +

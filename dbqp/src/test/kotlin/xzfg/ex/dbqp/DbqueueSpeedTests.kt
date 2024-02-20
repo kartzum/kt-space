@@ -66,7 +66,7 @@ class DbqueueSpeedTests {
         for (j in 0..1) {
             submitGenerator(queueTableSchema, location)
         }
-        val n = 15
+        val n = 10
         val t = n * 60L
         val tg = ((n * 60) * 0.9).toLong()
         Watch(tasksCounter).run {
@@ -74,9 +74,14 @@ class DbqueueSpeedTests {
             taskGeneratorService.run(tg, TimeUnit.SECONDS)
         }
         println("$t, $tg")
-        // 300, 270.  tasks: 60814, seconds: 570, ts: 106
-        // 600, 540.  tasks: 110612, seconds: 1140, ts: 97
-        // 900, 810.  tasks: 144771, seconds: 1710, ts: 84
+        // 1.
+        // 300, 270.     tasks: 60814, seconds: 570, ts: 106
+        // 600, 540.     tasks: 110612, seconds: 1140, ts: 97
+        // 900, 810.     tasks: 144771, seconds: 1710, ts: 84
+        // 1800, 1620.   tasks: 279534, seconds: 3420, ts: 81
+        // 2.
+        // 300, 270.     tasks: 32611, seconds: 570, ts: 57
+        // 600, 540.     tasks: 57500, seconds: 1140, ts: 50
     }
 
     @Test
@@ -90,7 +95,7 @@ class DbqueueSpeedTests {
         for (j in 0..1) {
             submitGenerator(queueTableSchema, location)
         }
-        val n = 15
+        val n = 30
         val t = n * 60L
         val tg = ((n * 60) * 0.9).toLong()
         Watch(tasksCounter).run {
@@ -104,6 +109,7 @@ class DbqueueSpeedTests {
         // 600, 540.   tasks: 64159, seconds: 1140, ts: 56
         // 600, 540.   tasks: 99629, seconds: 1140, ts: 87
         // 900, 810.   tasks: 182868, seconds: 1710, ts: 106
+        // 1800, 1620. tasks: 301279, seconds: 3420, ts: 88
     }
 
     private fun submitConsumer(
